@@ -6,7 +6,7 @@ on:
     - cron: 0 18 * * *
 
 env:
-  SOURCE_URL: https://github.com/coolsnowwolf/lede
+  SOURCE_URL: https://github.com/immortalwrt/immortalwrt
   SOURCE_BRANCH: master
   CONFIG_FILE: configs/ax6s.config
   DIY_SCRIPT: diy-mini.sh
