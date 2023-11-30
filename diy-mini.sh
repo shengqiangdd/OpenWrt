@@ -17,6 +17,7 @@ rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/luci/applications/luci-app-netdata
 rm -rf feeds/packages/net/v2ray-geodata
+rm -rf feeds/packages/net/v2dat
 
 # 添加额外插件
 git clone https://github.com/Zxilly/UA2F.git package/UA2F
