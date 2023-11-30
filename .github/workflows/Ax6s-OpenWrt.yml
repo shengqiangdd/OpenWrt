@@ -7,7 +7,7 @@ on:
 
 env:
   SOURCE_URL: https://github.com/immortalwrt/immortalwrt
-  SOURCE_BRANCH: master
+  SOURCE_BRANCH: openwrt-23.05
   CONFIG_FILE: configs/ax6s.config
   DIY_SCRIPT: diy-mini.sh
   TOOLCHAIN_TAG: Toolchain
