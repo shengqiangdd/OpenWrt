@@ -14,6 +14,7 @@ env:
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
   FIRMWARE_TAG: Ax6s
+  OPENWRT_RELEASE: true
   TZ: Asia/Shanghai
 
 jobs:
