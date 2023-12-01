@@ -10,7 +10,6 @@ env:
   SOURCE_BRANCH: openwrt-23.05
   CONFIG_FILE: configs/ax6s.config
   DIY_SCRIPT: diy-mini.sh
-  TOOLCHAIN_TAG: Toolchain
   CLASH_KERNEL: arm64
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
