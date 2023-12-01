@@ -152,6 +152,21 @@ jobs:
         name: ${{ env.SOURCE_REPO }}-firmware-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE_PATH }}
 
+    - name: Upload Firmware To Release
+      if: steps.generate.outputs.status == 'success' && env.FIRMWARE_RELEASE == 'true'
+      uses: ncipollo/release-action@v1
+      with:
+        name: R${{ env.DATE }} for ${{ env.FIRMWARE_TAG }}
+        allowUpdates: true
+        tag: ${{ env.FIRMWARE_TAG }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: ${{ env.FIRMWARE_PATH }}/*
+        body: |
+          **This is Temporary Firmware for Armvirt 64**
+          * 这是 AX6S_MINI精简版打包临时固件，不可直刷
+          直刷固件参见 Tag 名为 AX6S_MINI 的 Releases
+          ${{ env.VERSION_INFO }}
+
   Package:
     needs: [Build]
     runs-on: ubuntu-22.04
