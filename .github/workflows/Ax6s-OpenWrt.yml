@@ -1,9 +1,9 @@
-name: Ax6s OpenWrt
+name: AX6s OpenWrt
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 18 * * *
+    - cron: 0 21 * * *
 
 env:
   SOURCE_URL: https://github.com/immortalwrt/immortalwrt
@@ -13,7 +13,7 @@ env:
   CLASH_KERNEL: arm64
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
-  FIRMWARE_TAG: Ax6s_MINI
+  FIRMWARE_TAG: AX6s_MINI
   OPENWRT_RELEASE: true
   OPENWRT_TAG: Ax6s_MINI
   TZ: Asia/Shanghai
