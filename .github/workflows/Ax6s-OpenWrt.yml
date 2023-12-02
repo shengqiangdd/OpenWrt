@@ -6,8 +6,8 @@ on:
     - cron: 0 21 * * *
 
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-23.05
+  SOURCE_URL: https://github.com/immortalwrt/immortalwrt
+  SOURCE_BRANCH: openwrt-23.05
   CONFIG_FILE: configs/ax6s.config
   DIY_SCRIPT: diy-mini.sh
   CLASH_KERNEL: arm64
