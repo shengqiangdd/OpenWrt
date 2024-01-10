@@ -6,8 +6,8 @@ on:
     - cron: 0 21 * * *
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-23.05
   CONFIG_FILE: configs/ax6s.config
   DIY_SCRIPT: diy-ax6s.sh
   CLASH_KERNEL: arm64
