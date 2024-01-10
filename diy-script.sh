@@ -18,6 +18,7 @@ rm -rf feeds/luci/themes/luci-theme-netgear
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/luci/applications/luci-app-netdata
 rm -rf feeds/luci/applications/luci-app-serverchan
+rm -rf feeds/packages/net/v2ray-geodata
 
 # 添加额外插件
 git clone https://github.com/Zxilly/UA2F.git package/UA2F
@@ -70,6 +71,7 @@ git clone --depth=1 https://github.com/ximiTech/msd_lite package/msd_lite
 # MosDNS
 svn export https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns package/luci-app-mosdns
 svn export https://github.com/sbwml/luci-app-mosdns/trunk/mosdns package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 
 # DDNS.to
 svn export https://github.com/linkease/nas-packages-luci/trunk/luci/luci-app-ddnsto package/luci-app-ddnsto
