@@ -6,8 +6,8 @@ on:
     - cron: 0 20 * * *
 
 env:
-  SOURCE_URL: https://github.com/immortalwrt/immortalwrt
-  SOURCE_BRANCH: openwrt-23.05
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
   CONFIG_FILE: configs/ac2100.config
   DIY_SCRIPT: diy-ac2100.sh
   CLASH_KERNEL: mipsle-hardfloat
