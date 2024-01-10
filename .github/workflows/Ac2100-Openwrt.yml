@@ -1,4 +1,4 @@
-name: Ax6s OpenWrt
+name: Ac2100 OpenWrt
 
 on:
   workflow_dispatch:
