@@ -38,6 +38,7 @@ git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-ddns-go pa
 git clone --depth=1 https://github.com/kiddin9/kwrt-packages/ddnsto package/ddnsto
 git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-ddnsto package/luci-app-ddnsto
 git clone --depth=1 https://github.com/kiddin9/kwrt-packages/mosdns package/mosdns
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/v2ray-geodata package/v2ray-geodata
 git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-mosdns package/luci-app-mosdns
 git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-turboacc package/luci-app-turboacc
 git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-easymesh package/luci-app-easymesh
