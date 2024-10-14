@@ -28,6 +28,22 @@ function git_sparse_clone() {
 
 # 添加额外插件
 #git clone https://github.com/Zxilly/UA2F.git package/UA2F
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/cpufreq package/cpufreq
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-cpufreq package/luci-app-cpufreq
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-theme-argon package/luci-theme-argon
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-advancedplus package/luci-app-advancedplus
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-autoreboot package/luci-app-autoreboot
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/ddns-go package/ddns-go
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-ddns-go package/luci-app-ddns-go
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/ddnsto package/ddnsto
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-ddnsto package/luci-app-ddnsto
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/mosdns package/mosdns
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-mosdns package/luci-app-mosdns
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-turboacc package/luci-app-turboacc
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-easymesh package/luci-app-easymesh
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/lucky package/lucky
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-lucky package/luci-app-lucky
+git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-wolplus package/luci-app-wolplus
 
 # 科学上网插件
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
@@ -87,5 +103,5 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 # 取消对 samba4 的菜单调整
 # sed -i '/samba4/s/^/#/' package/lean/default-settings/files/zzz-default-settings
 
-./scripts/feeds update -a
-./scripts/feeds install -a
+#./scripts/feeds update -a
+#./scripts/feeds install -a
