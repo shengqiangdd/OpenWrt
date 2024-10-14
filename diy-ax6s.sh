@@ -39,6 +39,7 @@ git_sparse_clone main https://github.com/kiddin9/kwrt-packages ddnsto
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-ddnsto
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages mosdns
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages v2ray-geodata
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages v2dat
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-mosdns
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-turboacc
 git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-easymesh
