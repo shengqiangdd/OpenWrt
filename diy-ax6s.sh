@@ -11,7 +11,7 @@ sed -i 's/192.168.6.1/192.168.1.1/g' package/base-files/files/bin/config_generat
 
 # 移除要替换的包
 rm -rf feeds/packages/net/mosdns
-rm -rf feeds/packages/net/smartdns
+#rm -rf feeds/packages/net/smartdns
 #rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/v2ray-geodata
@@ -28,23 +28,23 @@ function git_sparse_clone() {
 
 # 添加额外插件
 #git clone https://github.com/Zxilly/UA2F.git package/UA2F
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/cpufreq package/cpufreq
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-cpufreq package/luci-app-cpufreq
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-theme-argon package/luci-theme-argon
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-advancedplus package/luci-app-advancedplus
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-autoreboot package/luci-app-autoreboot
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/ddns-go package/ddns-go
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-ddns-go package/luci-app-ddns-go
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/ddnsto package/ddnsto
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-ddnsto package/luci-app-ddnsto
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/mosdns package/mosdns
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/v2ray-geodata package/v2ray-geodata
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-mosdns package/luci-app-mosdns
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-turboacc package/luci-app-turboacc
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-easymesh package/luci-app-easymesh
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/lucky package/lucky
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-lucky package/luci-app-lucky
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages/luci-app-wolplus package/luci-app-wolplus
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages cpufreq
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-cpufreq
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-theme-argon
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-advancedplus
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-autoreboot
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages ddns-go
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-ddns-go
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages ddnsto
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-ddnsto
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages mosdns
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages v2ray-geodata
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-mosdns
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-turboacc
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-easymesh
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages lucky
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-lucky
+git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-wolplus
 
 # 科学上网插件
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
