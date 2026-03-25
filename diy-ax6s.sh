@@ -30,24 +30,24 @@ function git_sparse_clone() {
 
 # 添加额外插件
 #git clone https://github.com/Zxilly/UA2F.git package/UA2F
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages cpufreq
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-cpufreq
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-theme-argon
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-advancedplus
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-autoreboot
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages ddns-go
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-ddns-go
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages ddnsto
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-ddnsto
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages mosdns
+git_sparse_clone main https://github.com/kiddin9/op-packages cpufreq
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-cpufreq
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-theme-argon
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-advancedplus
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-autoreboot
+git_sparse_clone main https://github.com/kiddin9/op-packages ddns-go
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddns-go
+git_sparse_clone main https://github.com/kiddin9/op-packages ddnsto
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddnsto
+git_sparse_clone main https://github.com/kiddin9/op-packages mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages v2dat
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-mosdns
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-turboacc
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-easymesh
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages lucky
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-lucky
-git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-wolplus
+git_sparse_clone main https://github.com/kiddin9/op-packages v2dat
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-mosdns
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-turboacc
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-easymesh
+git_sparse_clone main https://github.com/kiddin9/op-packages lucky
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-lucky
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-wolplus
 
 # 科学上网插件
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
