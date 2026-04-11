@@ -52,6 +52,8 @@ git_sparse_clone main https://github.com/kiddin9/op-packages rustdesk-server
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-rustdesk-server
 git_sparse_clone main https://github.com/kiddin9/op-packages netdata
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-netdata
+git_sparse_clone main https://github.com/kiddin9/op-packages taskd
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-taskd
 
 # 科学上网插件
 #git clone --depth=1 -b main https://github.com/fw876/helloworld package/luci-app-ssr-plus
@@ -59,6 +61,7 @@ git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-netdata
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 #git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
+git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocksr-libev
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ssr-plus
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-passwall2
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-openclash
