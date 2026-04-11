@@ -8,7 +8,7 @@ on:
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-24.10
-  CONFIG_FILE: configs/x86_64-mini.config
+  CONFIG_FILE: configs/x86mini.config
   DIY_SCRIPT: diy-mini.sh
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
