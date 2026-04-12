@@ -62,6 +62,7 @@ git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-taskd
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 #git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
 git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocksr-libev
+git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocks-libev
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ssr-plus
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-passwall2
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-openclash
@@ -100,6 +101,7 @@ git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-argon-conf
 # iStore
 #git_sparse_clone main https://github.com/linkease/istore-ui app-store-ui
 #git_sparse_clone main https://github.com/linkease/istore luci
+git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-xterm
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-store
 
 # 在线用户
