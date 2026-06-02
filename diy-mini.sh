@@ -34,7 +34,6 @@ git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-adguardhom
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-diskman
 git_sparse_clone main https://github.com/kiddin9/op-packages cpufreq
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-cpufreq
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-theme-argon
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-advancedplus
 git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-autoreboot
 git_sparse_clone main https://github.com/kiddin9/op-packages ddns-go
