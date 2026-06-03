@@ -19,40 +19,103 @@ rm -rf feeds/packages/net/v2ray-geodata
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/lang/golang
 
-# Git稀疏克隆，只克隆指定目录到本地
-function git_sparse_clone() {
-  branch="$1" repourl="$2" && shift 2
-  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
-  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
-  cd $repodir && git sparse-checkout set $@
-  mv -f $@ ../package
-  cd .. && rm -rf $repodir
+KIDDIN9_REPO="https://github.com/kiddin9/op-packages"
+KIDDIN9_BRANCH="main"
+_KIDDIN9_DIR=""
+
+prepare_kiddin9_repo() {
+    local dest="${1:-kiddin9-packages}"
+    if [ -d "$dest/.git" ]; then
+        echo "→ kiddin9 repo already exists, updating..."
+        git -C "$dest" fetch --depth=1 origin "$KIDDIN9_BRANCH" 2>/dev/null || true
+    else
+        echo "→ cloning kiddin9/op-packages (once) ..."
+        git clone --depth=1 -b "$KIDDIN9_BRANCH" \
+            --single-branch \
+            --filter=blob:none \
+            --sparse \
+            "$KIDDIN9_REPO" "$dest"
+    fi
+    _KIDDIN9_DIR="$dest"
 }
 
+take_from_kiddin9() {
+    local pkg
+    [ -z "$_KIDDIN9_DIR" ] && { echo "ERROR: call prepare_kiddin9_repo first"; return 1; }
+    # 把需要的目录加入 sparse-checkout（已经 checkout 过的不会重复下载）
+    git -C "$_KIDDIN9_DIR" sparse-checkout set "$@"
+    # 移动到 openwrt/package/
+    for pkg in "$@"; do
+        if [ -d "$_KIDDIN9_DIR/$pkg" ]; then
+            echo "→ taking $pkg"
+            rm -rf "package/$pkg"
+            mv -f "$_KIDDIN9_DIR/$pkg" package/
+        else
+            echo "⚠ WARNING: $pkg not found in $_KIDDIN9_DIR, skipping"
+        fi
+    done
+}
+
+# Git稀疏克隆，只克隆指定目录到本地
+#function git_sparse_clone() {
+#  branch="$1" repourl="$2" && shift 2
+#  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
+#  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
+#  cd $repodir && git sparse-checkout set $@
+#  mv -f $@ ../package
+#  cd .. && rm -rf $repodir
+#}
+
+# clone 一次
+prepare_kiddin9_repo kiddin9-packages
+
 # 添加额外插件
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-adguardhome
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-diskman
-git_sparse_clone main https://github.com/kiddin9/op-packages cpufreq
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-cpufreq
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-advancedplus
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-autoreboot
-git_sparse_clone main https://github.com/kiddin9/op-packages ddns-go
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddns-go
-git_sparse_clone main https://github.com/kiddin9/op-packages ddnsto
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddnsto
-git_sparse_clone main https://github.com/kiddin9/op-packages mosdns
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-adguardhome
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-diskman
+#git_sparse_clone main https://github.com/kiddin9/op-packages cpufreq
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-cpufreq
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-advancedplus
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-autoreboot
+#git_sparse_clone main https://github.com/kiddin9/op-packages ddns-go
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddns-go
+#git_sparse_clone main https://github.com/kiddin9/op-packages ddnsto
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddnsto
+#git_sparse_clone main https://github.com/kiddin9/op-packages mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
-git_sparse_clone main https://github.com/kiddin9/op-packages v2dat
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-mosdns
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-turboacc
-git_sparse_clone main https://github.com/kiddin9/op-packages lucky
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-lucky
-git_sparse_clone main https://github.com/kiddin9/op-packages rustdesk-server
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-rustdesk-server
-git_sparse_clone main https://github.com/kiddin9/op-packages netdata
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-netdata
-git_sparse_clone main https://github.com/kiddin9/op-packages taskd
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-taskd
+#git_sparse_clone main https://github.com/kiddin9/op-packages v2dat
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-mosdns
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-turboacc
+#git_sparse_clone main https://github.com/kiddin9/op-packages lucky
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-lucky
+#git_sparse_clone main https://github.com/kiddin9/op-packages rustdesk-server
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-rustdesk-server
+#git_sparse_clone main https://github.com/kiddin9/op-packages netdata
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-netdata
+#git_sparse_clone main https://github.com/kiddin9/op-packages taskd
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-taskd
+
+# 一次性取出所有要的包（sparse-checkout 会增量生效，不会重复下载）
+take_from_kiddin9 \
+    luci-app-adguardhome \
+    luci-app-diskman \
+    cpufreq \
+    luci-app-cpufreq \
+    luci-app-advancedplus \
+    luci-app-autoreboot \
+    ddns-go \
+    luci-app-ddns-go \
+    ddnsto \
+    luci-app-ddnsto \
+    mosdns v2dat luci-app-mosdns \
+    luci-app-turboacc \
+    lucky luci-app-lucky \
+    rustdesk-server luci-app-rustdesk-server \
+    netdata luci-app-netdata \
+    taskd luci-lib-taskd \
+    shadowsocksr-libev shadowsocks-libev luci-app-ssr-plus luci-app-passwall2 luci-app-openclash\
+    luci-theme-argon luci-app-argon-config\
+    luci-lib-xterm \
+    luci-app-store
 
 # 科学上网插件
 #git clone --depth=1 -b main https://github.com/fw876/helloworld package/luci-app-ssr-plus
@@ -60,16 +123,16 @@ git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-taskd
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 #git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
-git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocksr-libev
-git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocks-libev
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ssr-plus
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-passwall2
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-openclash
+#git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocksr-libev
+#git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocks-libev
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ssr-plus
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-passwall2
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-openclash
 
 # Themes
 #git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
-git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-theme-argon
-git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-app-argon-config
+#git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-theme-argon
+#git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-app-argon-config
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-theme-argon
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-argon-config
 #git clone --depth=1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
@@ -102,8 +165,8 @@ git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-
 # iStore
 #git_sparse_clone main https://github.com/linkease/istore-ui app-store-ui
 #git_sparse_clone main https://github.com/linkease/istore luci
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-xterm
-git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-store
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-xterm
+#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-store
 
 # 在线用户
 #git_sparse_clone main https://github.com/haiibo/packages luci-app-onliner
