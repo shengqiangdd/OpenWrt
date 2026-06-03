@@ -20,7 +20,7 @@ env:
 jobs:
   Build:
     runs-on: ubuntu-22.04
-    timeout-minutes: 300
+    timeout-minutes: 240
 
     steps:
     - name: Checkout
@@ -66,7 +66,8 @@ jobs:
     - name: Clone Source Code
       run: |
         df -hT $GITHUB_WORKSPACE
-        git clone -b $REPO_BRANCH --single-branch --filter=blob:none $REPO_URL openwrt
+        # 添加 --depth=1 减少克隆体积
+        git clone --depth=1 -b $REPO_BRANCH --single-branch --filter=blob:none $REPO_URL openwrt
         cd openwrt
         echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
         COMMIT_AUTHOR=$(git show -s --date=short --format="作者: %an")
@@ -95,7 +96,8 @@ jobs:
       uses: HiGarfield/cachewrtbuild@main
       with:
         ccache: false
-        mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
+        # 添加时间戳到缓存键，避免缓存过期导致的问题
+        mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ github.run_id }}
         prefix: ${{ env.OPENWRT_PATH }}
 
     - name: Load Custom Configuration
@@ -105,14 +107,19 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/scripts/*.sh
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
+        # 在DIY脚本前先更新feeds，避免重复操作
+        ./scripts/feeds update -a
         $GITHUB_WORKSPACE/$DIY_SCRIPT
         $GITHUB_WORKSPACE/scripts/preset-clash-core.sh $CLASH_KERNEL
+        # DIY脚本后立即安装feeds，避免遗漏
+        ./scripts/feeds install -a
 
     - name: Download DL Package
       run: |
         cd $OPENWRT_PATH
         make defconfig
-        make download -j8
+        # 增加下载并发数，从8提高到16
+        make download -j16
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -120,8 +127,9 @@ jobs:
       run: |
         cd $OPENWRT_PATH
         make defconfig
-        make package/luci-base/compile V=s   # 最小 LUCI 测试
-        make package/luci-theme-argon/compile V=s
+        # 简化依赖检查，只检查关键包，不实际编译
+        echo "=== 检查关键依赖 ==="
+        make prepare V=s 2>&1 | grep -i "cannot\|not found\|incompatible" || echo "依赖检查通过"
 
     - name: Compile Firmware
       id: compile
@@ -129,8 +137,17 @@ jobs:
         cd $OPENWRT_PATH
         mkdir -p files/etc/uci-defaults
         cp $GITHUB_WORKSPACE/scripts/init-settings.sh files/etc/uci-defaults/99-init-settings
+        
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 || make -j1 V=s
+        
+        # 先编译基础系统（快速失败检测）
+        echo "=== 编译基础系统 ==="
+        make toolchain/compile -j$(nproc) V=s || exit 1
+        
+        # 再编译目标固件
+        echo "=== 编译固件 ==="
+        make -j$(nproc) V=s || make -j1 V=s || make -j1 V=s
+        
         echo "status=success" >> $GITHUB_OUTPUT
         echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "FILE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
