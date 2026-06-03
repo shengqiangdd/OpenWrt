@@ -22,7 +22,6 @@ _KIDDIN9_REPO="https://github.com/kiddin9/op-packages"
 _KIDDIN9_BRANCH="main"
 _KIDDIN9_DIR=""
 
-# 只克隆一次，只下载需要的目录
 prepare_repo() {
     local dest="${1:-kiddin9-packages}"
     
@@ -45,8 +44,7 @@ take_from_repo() {
     local pkg
     [ -z "$_KIDDIN9_DIR" ] && { echo "ERROR: 请先调用 prepare_repo"; return 1; }
     
-    # 关键：只下载指定的目录，不下载其他目录的文件
-    git -C "$_KIDDIN9_DIR" sparse-checkout set "$@"
+    git -C "$_KIDDIN9_DIR" sparse-checkout add "$@"
     
     for pkg in "$@"; do
         if [ -d "$_KIDDIN9_DIR/$pkg" ]; then
@@ -99,23 +97,25 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 take_from_repo \
     luci-app-adguardhome \
     luci-app-diskman \
-    cpufreq \
-    luci-app-cpufreq \
+    cpufreq luci-app-cpufreq \
     luci-app-advancedplus \
     luci-app-autoreboot \
-    ddns-go \
-    luci-app-ddns-go \
-    ddnsto \
-    luci-app-ddnsto \
+    ddns-go luci-app-ddns-go \
+    ddnsto luci-app-ddnsto
+    
+take_from_repo \
     luci-app-turboacc \
     lucky luci-app-lucky \
     rustdesk-server luci-app-rustdesk-server \
     netdata luci-app-netdata \
     taskd luci-lib-taskd \
-    luci-theme-argon luci-app-argon-config \
-    shadowsocksr-libev shadowsocks-libev luci-app-ssr-plus luci-app-openclash\
     luci-lib-xterm \
     luci-app-store
+
+take_from_repo \
+    shadowsocksr-libev shadowsocks-libev \
+    luci-app-ssr-plus \
+    luci-app-openclash
 
 # 科学上网插件
 #git clone --depth=1 -b main https://github.com/fw876/helloworld package/luci-app-ssr-plus
