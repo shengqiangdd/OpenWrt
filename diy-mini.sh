@@ -14,6 +14,7 @@ rm -rf feeds/packages/net/mosdns
 rm -rf feeds/packages/net/netdata
 rm -rf feeds/packages/net/smartdns
 rm -rf feeds/luci/themes/luci-theme-argon
+rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/v2ray-geodata
 rm -rf feeds/packages/lang/golang
@@ -113,7 +114,6 @@ take_from_kiddin9 \
     netdata luci-app-netdata \
     taskd luci-lib-taskd \
     shadowsocksr-libev shadowsocks-libev luci-app-ssr-plus luci-app-passwall2 luci-app-openclash\
-    luci-theme-argon luci-app-argon-config\
     luci-lib-xterm \
     luci-app-store
 
@@ -131,8 +131,8 @@ take_from_kiddin9 \
 
 # Themes
 #git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
-#git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-theme-argon
-#git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-app-argon-config
+git clone --depth=1 -b main https://github.com/kiddin9/op-packages/luci-theme-argon package/luci-theme-argon
+git clone --depth=1 -b main https://github.com/kiddin9/op-packages/luci-app-argon-config package/luci-app-argon-config
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-theme-argon
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-argon-config
 #git clone --depth=1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
