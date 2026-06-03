@@ -56,7 +56,7 @@ jobs:
     - name: Clone Source Code
       run: |
         df -hT $GITHUB_WORKSPACE
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone --depth=1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
         COMMIT_AUTHOR=$(git show -s --date=short --format="作者: %an")
@@ -111,6 +111,13 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
+    - name: Check Dependencies Before Build
+      run: |
+        cd $OPENWRT_PATH
+        make defconfig
+        make package/luci-base/compile V=s   # 最小 LUCI 测试
+        make package/luci-theme-argon/compile V=s
 
     - name: Compile Firmware
       id: compile
