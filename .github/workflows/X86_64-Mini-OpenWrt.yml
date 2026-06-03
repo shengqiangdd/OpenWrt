@@ -107,12 +107,14 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/scripts/*.sh
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
-        # 在DIY脚本前先更新feeds，避免重复操作
+        
+        # 先更新 feeds（确保 feeds 是最新的）
         ./scripts/feeds update -a
+        # 运行 DIY 脚本（只添加包，不操作 feeds）
         $GITHUB_WORKSPACE/$DIY_SCRIPT
-        $GITHUB_WORKSPACE/scripts/preset-clash-core.sh $CLASH_KERNEL
-        # DIY脚本后立即安装feeds，避免遗漏
+        # 安装所有 feeds（包括 DIY 脚本新增的包）
         ./scripts/feeds install -a
+        $GITHUB_WORKSPACE/scripts/preset-clash-core.sh $CLASH_KERNEL
 
     - name: Download DL Package
       run: |
