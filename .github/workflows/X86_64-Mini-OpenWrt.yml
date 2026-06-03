@@ -100,6 +100,12 @@ jobs:
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ github.run_id }}
         prefix: ${{ env.OPENWRT_PATH }}
 
+    - name: Install Feeds
+      run: |
+        cd $OPENWRT_PATH
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
     - name: Load Custom Configuration
       run: |
         [ -e files ] && mv files $OPENWRT_PATH/files
@@ -107,13 +113,7 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/scripts/*.sh
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
-        
-        # 先更新 feeds（确保 feeds 是最新的）
-        ./scripts/feeds update -a
-        # 运行 DIY 脚本（只添加包，不操作 feeds）
         $GITHUB_WORKSPACE/$DIY_SCRIPT
-        # 安装所有 feeds（包括 DIY 脚本新增的包）
-        ./scripts/feeds install -a
         $GITHUB_WORKSPACE/scripts/preset-clash-core.sh $CLASH_KERNEL
 
     - name: Download DL Package
