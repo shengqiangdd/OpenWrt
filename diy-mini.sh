@@ -131,8 +131,8 @@ take_from_kiddin9 \
 
 # Themes
 #git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
-git clone --depth=1 -b main https://github.com/kiddin9/op-packages/luci-theme-argon package/luci-theme-argon
-git clone --depth=1 -b main https://github.com/kiddin9/op-packages/luci-app-argon-config package/luci-app-argon-config
+git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-theme-argon
+git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-app-argon-config
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-theme-argon
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-argon-config
 #git clone --depth=1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
