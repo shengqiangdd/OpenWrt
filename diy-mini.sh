@@ -12,47 +12,49 @@ sed -i 's/192.168.1.1/192.168.2.4/g' package/base-files/files/bin/config_generat
 # 移除要替换的包
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/packages/net/netdata
-rm -rf feeds/packages/net/smartdns
 rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/v2ray-geodata
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/lang/golang
 
-KIDDIN9_REPO="https://github.com/kiddin9/op-packages"
-KIDDIN9_BRANCH="main"
+_KIDDIN9_REPO="https://github.com/kiddin9/op-packages"
+_KIDDIN9_BRANCH="main"
 _KIDDIN9_DIR=""
 
-prepare_kiddin9_repo() {
+# 只克隆一次，只下载需要的目录
+prepare_repo() {
     local dest="${1:-kiddin9-packages}"
+    
     if [ -d "$dest/.git" ]; then
-        echo "→ kiddin9 repo already exists, updating..."
-        git -C "$dest" fetch --depth=1 origin "$KIDDIN9_BRANCH" 2>/dev/null || true
+        echo "→ 更新仓库..."
+        git -C "$dest" fetch --depth=1 origin "$_KIDDIN9_BRANCH" 2>/dev/null || true
     else
-        echo "→ cloning kiddin9/op-packages (once) ..."
-        git clone --depth=1 -b "$KIDDIN9_BRANCH" \
+        echo "→ 克隆仓库（只下载结构）..."
+        git clone --depth=1 -b "$_KIDDIN9_BRANCH" \
             --single-branch \
             --filter=blob:none \
             --sparse \
-            "$KIDDIN9_REPO" "$dest"
+            "$_KIDDIN9_REPO" "$dest"
     fi
+    
     _KIDDIN9_DIR="$dest"
 }
 
-take_from_kiddin9() {
+take_from_repo() {
     local pkg
-    [ -z "$_KIDDIN9_DIR" ] && { echo "ERROR: call prepare_kiddin9_repo first"; return 1; }
-    # 把需要的目录加入 sparse-checkout（已经 checkout 过的不会重复下载）
+    [ -z "$_KIDDIN9_DIR" ] && { echo "ERROR: 请先调用 prepare_repo"; return 1; }
+    
+    # 关键：只下载指定的目录，不下载其他目录的文件
     git -C "$_KIDDIN9_DIR" sparse-checkout set "$@"
-    # 移动到 openwrt/package/
+    
     for pkg in "$@"; do
         if [ -d "$_KIDDIN9_DIR/$pkg" ]; then
-            echo "→ taking $pkg"
+            echo "→ 取出 $pkg"
             rm -rf "package/$pkg"
             mv -f "$_KIDDIN9_DIR/$pkg" package/
         else
-            echo "⚠ WARNING: $pkg not found in $_KIDDIN9_DIR, skipping"
+            echo "⚠ 警告: $pkg 不存在，跳过"
         fi
     done
 }
@@ -68,7 +70,7 @@ take_from_kiddin9() {
 #}
 
 # clone 一次
-prepare_kiddin9_repo kiddin9-packages
+prepare_repo kiddin9-packages
 
 # 添加额外插件
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-adguardhome
@@ -81,10 +83,8 @@ prepare_kiddin9_repo kiddin9-packages
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddns-go
 #git_sparse_clone main https://github.com/kiddin9/op-packages ddnsto
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-ddnsto
-#git_sparse_clone main https://github.com/kiddin9/op-packages mosdns
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
-#git_sparse_clone main https://github.com/kiddin9/op-packages v2dat
-#git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-mosdns
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-turboacc
 #git_sparse_clone main https://github.com/kiddin9/op-packages lucky
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-lucky
@@ -96,7 +96,7 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-lib-taskd
 
 # 一次性取出所有要的包（sparse-checkout 会增量生效，不会重复下载）
-take_from_kiddin9 \
+take_from_repo \
     luci-app-adguardhome \
     luci-app-diskman \
     cpufreq \
@@ -107,13 +107,13 @@ take_from_kiddin9 \
     luci-app-ddns-go \
     ddnsto \
     luci-app-ddnsto \
-    mosdns v2dat luci-app-mosdns \
     luci-app-turboacc \
     lucky luci-app-lucky \
     rustdesk-server luci-app-rustdesk-server \
     netdata luci-app-netdata \
     taskd luci-lib-taskd \
-    shadowsocksr-libev shadowsocks-libev luci-app-ssr-plus luci-app-passwall2 luci-app-openclash\
+    luci-theme-argon luci-app-argon-config \
+    shadowsocksr-libev shadowsocks-libev luci-app-ssr-plus luci-app-openclash\
     luci-lib-xterm \
     luci-app-store
 
@@ -122,6 +122,7 @@ take_from_kiddin9 \
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
+git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall2 package/luci-app-passwall2
 #git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
 #git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocksr-libev
 #git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocks-libev
@@ -131,8 +132,8 @@ take_from_kiddin9 \
 
 # Themes
 #git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
-git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-theme-argon
-git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-app-argon-config
+#git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-theme-argon
+#git clone --depth=1 -b main https://github.com/kiddin9/op-packages package/luci-app-argon-config
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-theme-argon
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-argon-config
 #git clone --depth=1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
@@ -212,5 +213,5 @@ find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/
 # 取消对 samba4 的菜单调整
 # sed -i '/samba4/s/^/#/' package/lean/default-settings/files/zzz-default-settings
 
-#./scripts/feeds update -a
-#./scripts/feeds install -a
+./scripts/feeds update -a
+./scripts/feeds install -a
