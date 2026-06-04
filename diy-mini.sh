@@ -107,6 +107,7 @@ take_from_repo \
     luci-app-turboacc \
     lucky luci-app-lucky \
     rustdesk-server luci-app-rustdesk-server \
+    wol luci-app-wolplus \
     netdata luci-app-netdata \
     taskd luci-lib-taskd \
     luci-lib-xterm \
