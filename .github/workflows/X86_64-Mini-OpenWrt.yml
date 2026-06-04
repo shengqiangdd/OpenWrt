@@ -116,9 +116,9 @@ jobs:
       run: |
         cd $OPENWRT_PATH
         make defconfig
-        make download -j8
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
+        find dl -size 0 -print -delete
+        make download -j16 || make download -j4
+        find dl -size -1024c -print -delete
 
     - name: Compile Firmware
       id: compile
