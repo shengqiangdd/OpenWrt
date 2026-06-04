@@ -95,6 +95,7 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 
 # 一次性取出所有要的包（sparse-checkout 会增量生效，不会重复下载）
 take_from_repo \
+    luci-theme-argon luci-app-argon-config \
     luci-app-adguardhome \
     luci-app-diskman \
     cpufreq luci-app-cpufreq \
@@ -123,7 +124,7 @@ take_from_repo \
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 #git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
-git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall2 package/luci-app-passwall2
+#git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall2 package/luci-app-passwall2
 #git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
 #git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocksr-libev
 #git_sparse_clone main https://github.com/kiddin9/op-packages shadowsocks-libev
@@ -133,8 +134,8 @@ git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall2 packag
 
 # Themes
 #git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
-git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
-git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
+#git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
+#git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-theme-argon
 #git_sparse_clone main https://github.com/kiddin9/op-packages luci-app-argon-config
 #git clone --depth=1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
