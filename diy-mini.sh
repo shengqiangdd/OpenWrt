@@ -113,7 +113,7 @@ take_from_repo \
     luci-app-store
 
 take_from_repo \
-    shadowsocksr-libev shadowsocks-libev \
+    shadowsocksr-libev shadowsocks-libev dns2socks \
     luci-app-ssr-plus \
     luci-app-openclash
 
