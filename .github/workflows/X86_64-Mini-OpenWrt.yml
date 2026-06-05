@@ -62,7 +62,6 @@ jobs:
     - name: Clone Source Code
       run: |
         df -hT $GITHUB_WORKSPACE
-        # 添加 --depth=1 减少克隆体积
         git clone --depth=1 -b $REPO_BRANCH --single-branch --filter=blob:none $REPO_URL openwrt
         cd openwrt
         echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
@@ -116,28 +115,16 @@ jobs:
       run: |
         cd $OPENWRT_PATH
         make defconfig
-        make download -j8 || make download -j4
+        make download -j8
         find dl -size -1024c -print -delete
 
     - name: Compile Firmware
       id: compile
       timeout-minutes: 240
       run: |
-        set -o pipefail
         cd $OPENWRT_PATH
-    
-        echo "Running defconfig..."
-        make defconfig
-    
-        echo "Start compile with -j1"
-        make -j1 V=s 2>&1 | tee build.log
-        rc=${PIPESTATUS[0]}
-    
-        if [ $rc -ne 0 ]; then
-          echo "::error::build failed"
-          tail -n 500 build.log
-          exit 1
-        fi
+        make -j$(nproc) || make -j1 || make -j1 V=s
+        echo "status=success" >> $GITHUB_OUTPUT
         echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "FILE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
 
