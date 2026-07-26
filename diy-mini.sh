@@ -11,7 +11,7 @@ sed -i 's/192.168.1.1/192.168.2.4/g' package/base-files/files/bin/config_generat
 
 # 移除要替换的包
 rm -rf feeds/packages/net/mosdns
-rm -rf feeds/packages/net/netdata
+#rm -rf feeds/packages/net/netdata
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/v2ray-geodata
@@ -107,16 +107,16 @@ take_from_repo \
 take_from_repo \
     luci-app-turboacc \
     lucky luci-app-lucky \
-    rustdesk-server luci-app-rustdesk-server \
+    #rustdesk-server luci-app-rustdesk-server \
     wol luci-app-wolplus \
-    netdata luci-app-netdata \
+    #netdata luci-app-netdata \
     taskd luci-lib-taskd \
     luci-lib-xterm \
     luci-app-store
 
 take_from_repo \
-    shadowsocksr-libev shadowsocks-libev \
-    luci-app-ssr-plus \
+    #shadowsocksr-libev shadowsocks-libev \
+    #luci-app-ssr-plus \
     luci-app-openclash
 
 # 科学上网插件
